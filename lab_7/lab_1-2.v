@@ -1,0 +1,106 @@
+// top module
+module special_counter(Clock, Reset, Up_Down, Out);
+
+input Clock, Reset, Up_Down;
+
+output [6:0] Out;
+
+wire Clock_Div;
+wire [3:0] TempOut;
+
+Frequency_Divider(.Clock(Clock), .Reset(Reset), .Clock_Div(Clock_Div));
+Up_Down_Counter(.Clock_Div(Clock_Div), .Up_Down(Up_Down), .Reset(Reset), .TempOut(TempOut));
+Seven_Display(.TempOut(TempOut), .Out(Out));
+
+endmodule
+
+// convert 4-bit input to seven display output
+module Seven_Display(TempOut, Out);
+
+input [3:0] TempOut;
+output [6:0] Out;
+reg [6:0] Out;
+
+always @(TempOut)
+begin
+case(TempOut)
+    0:  Out <= 7'b1000000;
+    1:  Out <= 7'b1111001;
+    2:  Out <= 7'b0100100;
+    3:  Out <= 7'b0110000;
+    4:  Out <= 7'b0011001;
+    5:  Out <= 7'b0010010;
+    6:  Out <= 7'b0000010;
+    7:  Out <= 7'b1111000;
+    8:  Out <= 7'b0000000;
+    9:  Out <= 7'b0010000;
+    10: Out <= 7'b0001000;
+    11: Out <= 7'b0000011;
+    12: Out <= 7'b1000110;
+    13: Out <= 7'b0100001;
+    14: Out <= 7'b0000110;
+    15: Out <= 7'b0001110;
+default: Out <= 7'b1000000;
+endcase
+end
+endmodule
+
+// count from 0 to F or F to 0
+module Up_Down_Counter(Clock_Div, Up_Down, Reset, TempOut);
+
+input Clock_Div, Up_Down, Reset;
+
+output [3:0] TempOut;
+
+reg [3:0] TempOut;
+
+always @(posedge Clock_Div or negedge Reset)
+begin
+    if(!Reset)
+        TempOut <= 0;
+    else begin
+        if(Up_Down) begin
+            if(TempOut == 4'b1111)
+                TempOut <= 0;
+            else
+                TempOut <= TempOut + 1;
+        end
+        else begin
+            if(TempOut == 4'b0000)
+                TempOut <= 4'b1111;
+            else
+                TempOut <= TempOut - 1;
+        end
+    end
+end
+
+endmodule
+
+// devide frequency to 1Hz
+module Frequency_Divider(Clock, Reset, Clock_Div);
+
+input Clock, Reset;
+
+output Clock_Div;
+
+reg Clock_Div;
+reg [31:0] Count;
+
+always @(posedge Clock or negedge Reset)
+begin
+    if(!Reset)
+        Count <= 0;
+    else begin
+        if(Count >= 32'b25000000)
+            Count <= 0;
+            Clock_Div <= ~Clock_Div;
+        else
+            Count <= Count + 1;
+    end
+end
+
+endmodule
+
+
+
+
