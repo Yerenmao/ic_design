@@ -91,9 +91,10 @@ begin
     if(!Reset)
         Count <= 0;
     else begin
-        if(Count >= 32'b25000000)
+        if(Count >= 32'd25000000) begin
             Count <= 0;
             Clock_Div <= ~Clock_Div;
+        end
         else
             Count <= Count + 1;
     end
