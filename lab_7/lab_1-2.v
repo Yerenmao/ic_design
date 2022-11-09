@@ -11,7 +11,7 @@ wire IsZero;
 
 Frequency_Divider(.Clock(Clock), .Reset(Reset), .Clock_Div(Clock_Div));
 Up_Down_Counter(.Clock_Div(Clock_Div), .Up_Down(Up_Down), .Reset(Reset), .TempOut(TempOut), .IsZero(IsZero));
-Seven_Display(.TempOut(TempOut), .Out(Out));
+Seven_Display(.TempOut(TempOut), .IsZero(IsZero), .Out(Out));
 
 endmodule
 
