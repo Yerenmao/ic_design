@@ -51,7 +51,7 @@ begin
     end
     else begin
         if(In) begin
-            case(Current_State)
+            case(TempOut)
                 case 0: TempOut <= 3;
                 case 1: TempOut <= 5;
                 case 2: TempOut <= 0;
@@ -62,7 +62,7 @@ begin
             endcase
         end
         else begin
-            case(Current_State)
+            case(TempOut)
                 case 0: TempOut <= 1;
                 case 1: TempOut <= 2;
                 case 2: TempOut <= 3;
