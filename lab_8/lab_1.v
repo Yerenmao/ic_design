@@ -52,23 +52,23 @@ begin
     else begin
         if(In) begin
             case(TempOut)
-                case 0: TempOut <= 3;
-                case 1: TempOut <= 5;
-                case 2: TempOut <= 0;
-                case 3: TempOut <= 1;
-                case 4: TempOut <= 2;
-                case 5: TempOut <= 4;
+                0: TempOut <= 3;
+                1: TempOut <= 5;
+                2: TempOut <= 0;
+                3: TempOut <= 1;
+                4: TempOut <= 2;
+                5: TempOut <= 4;
                 default: TempOut <= 0;
             endcase
         end
         else begin
             case(TempOut)
-                case 0: TempOut <= 1;
-                case 1: TempOut <= 2;
-                case 2: TempOut <= 3;
-                case 3: TempOut <= 4;
-                case 4: TempOut <= 5;
-                case 5: TempOut <= 0;
+                0: TempOut <= 1;
+                1: TempOut <= 2;
+                2: TempOut <= 3;
+                3: TempOut <= 4;
+                4: TempOut <= 5;
+                5: TempOut <= 0;
                 default: TempOut <= 0;
             endcase
         end
