@@ -3,7 +3,10 @@ module top_module(Clock, Reset, Dot_Row, Dot_Col);
 input Clock, Reset;
 output [7:0] Dot_Row, Dot_Col;
 
+wire Clock_Div;
 
+Frequency_Divider (.Clock(Clock), .Reset(Reset), .Clock_Div(Clock_Div));
+Dot_Matrix_Display (.Clock_Div(Clock_Div), .Reset(Reset), .Dot_Row(Dot_Row), .Dot_Col(Dot_Col));
 
 endmodule
 
