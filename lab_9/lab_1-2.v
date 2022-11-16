@@ -35,7 +35,7 @@ begin
             3'd4: Dot_Row <= 8'b11110111;
             3'd5: Dot_Row <= 8'b11111011;
             3'd6: Dot_Row <= 8'b11111101;
-            3'd7: Dot_Row <= 8'b01111110;
+            3'd7: Dot_Row <= 8'b11111110;
         endcase
         case(row_count)
             3'd0: Dot_Col <= 8'b00011000;
