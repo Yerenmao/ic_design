@@ -147,8 +147,8 @@ end
 
 endmodule
 
-// implement frequency divider 10000Hz
-module Frequency_Divider_10000Hz(Clock, Reset, Clock_Div_1Hz, Clock_Div_10000Hz);
+// implement frequency divider
+module Frequency_Divider(Clock, Reset, Clock_Div_1Hz, Clock_Div_10000Hz);
 
 input Clock, Reset;
 output reg Clock_Div_1Hz, Clock_Div_10000Hz;
@@ -160,26 +160,26 @@ always @(posedge Clock or negedge Reset)
 begin
     if(!Reset) begin
         Count_1Hz <= 0;
-        if(Count_10000Hz >= 16'd2500) begin
-            Count_10000Hz <= 0;
-            Clock_Div_10000Hz <= Count_10000Hz + 1;
-        end
-        else
-            Count_10000Hz <= Count_10000Hz + 1;
     end
     else begin
         if(Count_1Hz >= 32'd25000000) begin
             Count_1Hz <= 0;
             Clock_Div_1Hz <= ~Clock_Div_1Hz;
+            if(Count_10000Hz >= 16'd2500) begin
+                Count_10000Hz <= 0;
+                Clock_Div_10000Hz <= ~Count_10000Hz;
+            end
+            else
+                Count_10000Hz <= Count_10000Hz + 1;
         end
         else
             Count_1Hz <= Count_1Hz + 1;
-        if(Count_10000Hz >= 16'd2500) begin
-            Count_10000Hz <= 0;
-            Clock_Div_10000Hz <= ~Clock_Div_10000Hz;
-        end
-        else
-            Count_10000Hz <= Count_10000Hz + 1;
+            if(Count_10000Hz >= 16'd2500) begin
+                Count_10000Hz <= 0;
+                Clock_Div_10000Hz <= ~Count_10000Hz;
+            end
+            else
+                Count_10000Hz <= Count_10000Hz + 1;
     end
 end
 
