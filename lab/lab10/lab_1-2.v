@@ -7,6 +7,7 @@ output [6:0] Out;
 
 wire Clock_Div_1Hz;
 wire Clock_Div_10000Hz;
+wire [3:0] Time;
 
 Frequency_Divider_1Hz(
     .Clock(Clock), .Reset(Reset),
@@ -14,27 +15,58 @@ Frequency_Divider_1Hz(
 );
 
 Frequency_Divider_10000Hz(
-    .Clock(Clock), .Clock_Div_10000Hz(Clock_Div_10000Hz);
+    .Clock(Clock), .Clock_Div_10000Hz(Clock_Div_10000Hz)
 );
 
-Traffic_Light (
+Traffic_Light(
     .Clock_Div_1Hz(Clock_Div_1Hz), .Clock_Div_10000Hz(Clock_Div_10000Hz),
-    .Dot_Row(Dot_Row), .Dot_Col(Dot_Col), .Out(Out)
+    .Dot_Row(Dot_Row), .Dot_Col(Dot_Col), .Time(Time);
+);
+
+Seven_Display(
+    .Time(Time), .Out(Out)
 );
 
 endmodule
 
+// implement seven display 
+module Seven_Display(Time, Out);
 
-
-// implement traffic light
-module Traffic_Light(Clock_Div_1Hz, Clock_Div_10000Hz, Reset, Dot_Row, Dot_Col, Out);
-
-input Clock_Div_1Hz, Clock_Div_10000Hz, Reset;
-output reg [7:0] Dot_Row, Dot_Col
+input [3:0] Time;
 output reg [6:0] Out;
 
+always @(Time)
+begin
+    case(Time)
+        0:  Out <= 7'b1000000;
+        1:  Out <= 7'b1111001;
+        2:  Out <= 7'b0100100;
+        3:  Out <= 7'b0110000;
+        4:  Out <= 7'b0011001;
+        5:  Out <= 7'b0010010;
+        6:  Out <= 7'b0000010;
+        7:  Out <= 7'b1111000;
+        8:  Out <= 7'b0000000;
+        9:  Out <= 7'b0010000;
+        10: Out <= 7'b0001000;
+        11: Out <= 7'b0000011;
+        12: Out <= 7'b1000110;
+        13: Out <= 7'b0100001;
+        14: Out <= 7'b0000110;
+        15: Out <= 7'b0001110;
+    endcase
+end
+
+endmodule
+
+// implement traffic light
+module Traffic_Light(Clock_Div_1Hz, Clock_Div_10000Hz, Reset, Dot_Row, Dot_Col, Time);
+
+input Clock_Div_1Hz, Clock_Div_10000Hz, Reset;
+output reg [7:0] Dot_Row, Dot_Col;
+output reg [3:0] Time;
+
 reg [1:0] State;
-reg [3:0] Time;
 reg [2:0] Row_Count;
 
 parameter [1:0] Green = 2'b00, Yellow = 2'b01, Red = 2'b10, None = 2'b11;
@@ -114,28 +146,6 @@ begin
             3'd7: Dot_Col <= 8'b00100100;
         endcase
         end
-    endcase
-end
-
-always @(*)
-begin
-    case(Time)
-        0:  Out <= 7'b1000000;
-        1:  Out <= 7'b1111001;
-        2:  Out <= 7'b0100100;
-        3:  Out <= 7'b0110000;
-        4:  Out <= 7'b0011001;
-        5:  Out <= 7'b0010010;
-        6:  Out <= 7'b0000010;
-        7:  Out <= 7'b1111000;
-        8:  Out <= 7'b0000000;
-        9:  Out <= 7'b0010000;
-        10: Out <= 7'b0001000;
-        11: Out <= 7'b0000011;
-        12: Out <= 7'b1000110;
-        13: Out <= 7'b0100001;
-        14: Out <= 7'b0000110;
-        15: Out <= 7'b0001110;
     endcase
 end
 
