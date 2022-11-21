@@ -8,10 +8,15 @@ output [7:0] Out;
 wire Clock_Div_10000Hz;
 wire Clock_Div_1Hz;
 
-Frequency_Divider(
+Frequency_Divider_1Hz(
     .Clock(Clock), .Reset(Reset),
-    .Clock_Div_1Hz(Clock_Div_1Hz), .Clock_Div_10000Hz(Clock_Div_10000Hz)
+    .Clock_Div_1Hz(Clock_Div_1Hz)
 );
+
+Frequency_Divider_10000Hz(
+    .Clock(Clock), .Clock_Div_10000Hz(Clock_Div_10000Hz);
+);
+
 Traffic_Light (
     .Clock_Div_1Hz(Clock_Div_1Hz), .Clock_Div_10000Hz(Clock_Div_10000Hz),
     .Dot_Row(Dot_Row), .Dot_Col(Dot_Col), .Out(Out)
@@ -111,7 +116,7 @@ begin
     endcase
 end
 
-always @(Time)
+always @(*)
 begin
     case(Time)
         0:  Out <= 7'b1000000;
@@ -141,9 +146,8 @@ endmodule
 module Frequency_Divider(Clock, Reset, Clock_Div_1Hz, Clock_Div_10000Hz);
 
 input Clock, Reset;
-output reg Clock_Div_1Hz, Clock_Div_10000Hz;
+output reg Clock_Div_1Hz;
 
-reg [15:0] Count_10000Hz;
 reg [31:0] Count_1Hz;
 
 always @(posedge Clock or negedge Reset)
@@ -157,14 +161,25 @@ begin
         end
         else
             Count_1Hz <= Count_1Hz + 1;
+end
 
-        if(Count_10000Hz >= 16'd2500) begin
-            Count_10000Hz <= 0;
-            Clock_Div_10000Hz <= ~Clock_Div_10000Hz;
-        end
-        else
-            Count_10000Hz <= Count_10000Hz + 1;
+endmodule
+
+module Frequency_Divider_10000Hz(Clock, Clock_Div_10000Hz);
+
+input Clock;
+output reg Clock_Div_10000Hz;
+
+reg [15:0] Count_10000Hz;
+
+always @(posedge Clock)
+begin
+    if(Count_10000Hz >= 16'd2500) begin
+        Count_10000Hz <= 0;
+        Clock_Div_10000Hz <= ~Clock_Div_10000Hz;
     end
+    else
+        Count_10000Hz <= Count_10000Hz + 1;
 end
 
 endmodule
