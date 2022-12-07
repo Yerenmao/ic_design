@@ -25,101 +25,198 @@ always @(posedge clock or negedge reset) begin
         endcase
         case(kp_buf)
             4'h0: begin
-                if(count_row == d'6 || count_row == d'7)
-                    dot_col <= 8'b11000000;
-                else
-                    dot_col <= 8'b00000000;
-            end
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b11000000;
+            3'd7: dot_col <= 8'b11000000;
+					endcase
+				end
             4'h1: begin
-                if(count_row == d'6 || count_row == d'7)
-                    dot_col <= 8'b00110000;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b00110000;
+            3'd7: dot_col <= 8'b00110000;
+					endcase
             end
             4'h4: begin
-                if(count_row == d'6 || count_row == d'7)
-                    dot_col <= 8'b00001100;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b00001100;
+            3'd7: dot_col <= 8'b00001100;
+					endcase
             end
             4'h7: begin
-                if(count_row == d'6 || count_row == d'7)
-                    dot_col <= 8'b00000011;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b00000011;
+            3'd7: dot_col <= 8'b00000011;
+					endcase
             end
             4'ha: begin
-                if(count_row == d'4 || count_row == d'5)
-                    dot_col <= 8'b11000000;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b11000000;
+            3'd5: dot_col <= 8'b11000000;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
             4'h2: begin
-                if(count_row == d'4 || count_row == d'5)
-                    dot_col <= 8'b00110000;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b00110000;
+            3'd5: dot_col <= 8'b00110000;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
             4'h5: begin
-                if(count_row == d'4 || count_row == d'5)
-                    dot_col <= 8'b00001100;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b00001100;
+            3'd5: dot_col <= 8'b00001100;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
             4'h8: begin
-                if(count_row == d'4 || count_row == d'5)
-                    dot_col <= 8'b00000011;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b00000011;
+            3'd5: dot_col <= 8'b00000011;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
             4'hb: begin
-                if(count_row == d'2 || count_row == d'3)
-                    dot_col <= 8'b11000000;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b11000000;
+            3'd3: dot_col <= 8'b11000000;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
             4'h3: begin
-                if(count_row == d'2 || count_row == d'3)
-                    dot_col <= 8'b00110000;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b00110000;
+            3'd3: dot_col <= 8'b00110000;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
             4'h6: begin
-                if(count_row == d'2 || count_row == d'3)
-                    dot_col <= 8'b00001100;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b00001100;
+            3'd3: dot_col <= 8'b00001100;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
             4'h9: begin
-                if(count_row == d'2 || count_row == d'3)
-                    dot_col <= 8'b00000011;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000000;
+            3'd1: dot_col <= 8'b00000000;
+            3'd2: dot_col <= 8'b00000011;
+            3'd3: dot_col <= 8'b00000011;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
             4'hf: begin
-                if(count_row == d'0 || count_row == d'1)
-                    dot_col <= 8'b11000000;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b11000000;
+            3'd1: dot_col <= 8'b11000000;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
             4'he: begin
-                if(count_row == d'0 || count_row == d'1)
-                    dot_col <= 8'b00110000;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00110000;
+            3'd1: dot_col <= 8'b00110000;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
             4'hd: begin
-                if(count_row == d'0 || count_row == d'1)
-                    dot_col <= 8'b00001100;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00001100;
+            3'd1: dot_col <= 8'b00001100;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
             4'hc: begin
-                if(count_row == d'0 || count_row == d'1)
-                    dot_col <= 8'b00000011;
-                else
-                    dot_col <= 8'b00000000;
+                case(count_row)
+            3'd0: dot_col <= 8'b00000011;
+            3'd1: dot_col <= 8'b00000011;
+            3'd2: dot_col <= 8'b00000000;
+            3'd3: dot_col <= 8'b00000000;
+            3'd4: dot_col <= 8'b00000000;
+            3'd5: dot_col <= 8'b00000000;
+            3'd6: dot_col <= 8'b00000000;
+            3'd7: dot_col <= 8'b00000000;
+					endcase
             end
+			endcase
     end
 end
 
